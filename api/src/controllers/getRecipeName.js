@@ -6,4 +6,6 @@ const {API_KEY} = process.env
 
 const getRecipeName = async(req, res)=>{}
 
-module.exports={getRecipeName}
+const getAllRecipes = async(req, res)=>{}
+
+module.exports={getRecipeName, getAllRecipes}
