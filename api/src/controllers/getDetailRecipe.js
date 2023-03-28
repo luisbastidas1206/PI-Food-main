@@ -4,6 +4,6 @@ const axios = require ("axios")
 require("dotenv").config()
 const {API_KEY} = process.env
 
-const postRecipe = async(req, res)=>{}
+const getDetailRecipe = async(req, res)=>{}
 
-module.exports={postRecipe}
+module.exports={getDetailRecipe}

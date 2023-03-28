@@ -22,7 +22,8 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use('/', routes);
+server.use('/recipes', routes);
+server.use('/diets', routes);
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
