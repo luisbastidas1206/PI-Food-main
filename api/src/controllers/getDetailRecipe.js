@@ -1,28 +1,25 @@
-const recipeModel = require ("../models/Recipe")
-const dietModel = require ("../models/Diet")
-const axios = require ("axios")
-const { response } = require("express")
-require("dotenv").config()
-const {API_KEY} = process.env
+const { Recipe } = require("../db");
+const axios = require("axios");
+require("dotenv").config();
+const { API_KEY } = process.env;
 
-const getDetailRecipe = (req, res)=>{
+const getDetailRecipe = async (req, res) => {
+  try {
     const { idRecipe } = req.params;
-    const URL = `https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${API_KEY}`
-    axios (URL + id).then(
-        (response)=>{
-            const character = {
-                id:response.data.id,
-                title:response.data.title,
-                image:response.data.image,
-                imagetipe:response.data.imagetipe,
-                resumen:response.data.resumen,
-                salud:response.data.salud,
-                pasos:response.data.pasos,
-            };
-            res.status(200).json(character);
-        },
-        (error)=> res.status(500).json(error.message)
-    )
-}
+    const expresionR = /^[0-9]+$/;
+    let data;
+    if (expresionR.test(idRecipe)) {
+      const response = await axios(
+        `https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${API_KEY}`
+      );
+      data = response.data;
+    } else {
+      data = await Recipe.findByPk(idRecipe);
+    }
+    res.json(200, data);
+  } catch (error) {
+    res.json(500, { error: error.message });
+  }
+};
 
-module.exports={getDetailRecipe}
+module.exports = { getDetailRecipe };
