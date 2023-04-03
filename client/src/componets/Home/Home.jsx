@@ -1,9 +1,11 @@
-// import React from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux"
+// import {}
 
 export default function Form() {
     return (
       <div >
-        <h1>Hola soy Luis welcome to my Home</h1>
+        <h1>pepe</h1>
       </div>
     );
   }

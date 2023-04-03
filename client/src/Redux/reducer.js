@@ -7,6 +7,7 @@ import {
 } from "./action_type";
 
 const initialState={
+    //allRecipes: []
     myRecipes:[],
     detail:{},
 }
@@ -40,7 +41,7 @@ const reducer = (state=initialState, {type, payload}) => {
 
         case ORDER:
             return{
-                ...state,//Hernan cada , me recuerda a ti
+                ...state,//Hernan cada "," me recuerda a ti
                 myRecipes:
                 payload === "Ascendente" ? state.myRecipes.sort((a,b)=> a-b): state.myRecipes.sort((a,b)=> b-a)
             }
