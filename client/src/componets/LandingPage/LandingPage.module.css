@@ -1,4 +1,12 @@
 .landing {
+  background-image: url("../../imagenes/remy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  
   color: azure;
   font-family: "Times New Roman", Times, serif;
   font-style: italic;

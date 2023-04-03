@@ -3,7 +3,7 @@ const axios = require ("axios")
 require("dotenv").config()
 const {API_KEY} = process.env
 
-const getDiets = async(req, res)=>{
+const getDiets = async()=>{
     try {
         let arr=[]
         const response= await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true`)
@@ -22,10 +22,10 @@ const getDiets = async(req, res)=>{
         }),{
             ignoreDuplicates: true // según san google esta linea es para que ignore las dietas que ya estan en base de datos, si intenta agregar una no lo hará
     })
-        const allDiets = await Diet.findAll()
-        res.json(200, allDiets)
+        await Diet.findAll()
+        
     } catch (error) {
-        res.json(500, {error: error.message})
+        return (error.message)
     }
 } 
 
