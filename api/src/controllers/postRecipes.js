@@ -5,14 +5,16 @@ const {API_KEY} = process.env
 
 const postRecipe = async(req, res)=>{
     try {
-        const {title, imagen, resumen, salud, pasos}=req.body
+        const {nombre, imagen, resumen, salud, pasos, dietas}=req.body
         const receta= await Recipe.create({
-            title,
+            nombre,
             imagen,
             resumen,
             salud,
-            pasos
+            pasos,
+            dietas: dietas.map(e=> e.nombre)
         })
+        await receta.addDiets(dietas)
         res.json(201, receta)
     } catch (error) {
         res.json(400, {error:error.message})

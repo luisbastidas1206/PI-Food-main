@@ -21,8 +21,11 @@ const getDiets = async()=>{
             }
         }),{
             ignoreDuplicates: true // según san google esta linea es para que ignore las dietas que ya estan en base de datos, si intenta agregar una no lo hará
+    
     })
         await Diet.findAll()
+      
+        console.log(arr)
         
     } catch (error) {
         return (error.message)

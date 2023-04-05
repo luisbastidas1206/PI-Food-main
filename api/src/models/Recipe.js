@@ -11,13 +11,14 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      title: {
+      nombre: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       imagen: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: 'https://www.google.cl/url?sa=i&url=https%3A%2F%2Fwww.univision.com%2Ftemas%2Fratatouille&psig=AOvVaw0nyh9xZyx303ef3lQn_eNN&ust=1680793941912000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCJjWg8CDk_4CFQAAAAAdAAAAABAk'
       },
       resumen: {
         type: DataTypes.TEXT,
