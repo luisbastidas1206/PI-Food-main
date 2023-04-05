@@ -12,7 +12,16 @@ const getDetailRecipe = async (req, res) => {
       const response = await axios(
         `https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${API_KEY}`
       );
-      data = response.data;
+    const api = response.data;
+    data= {
+      id: api.id,
+      nombre: api.title,
+      imagen: api.image,
+      resumen: api.summary,
+      salud: api.healthScore,
+      pasos: api.instructions,
+      dietas: api.diets
+    }
     } else {
       data = await Recipe.findByPk(idRecipe);
     }
