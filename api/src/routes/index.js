@@ -4,6 +4,7 @@ const { Router } = require("express");
 const { getDetailRecipe } = require("../controllers/getDetailRecipe");
 const { getRecipe,  } = require("../controllers/getRecipe");
 const { postRecipe } = require("../controllers/postRecipes");
+const { dietControl } = require("../controllers/getDiets");
 
 const router = Router();
 
@@ -13,5 +14,6 @@ const router = Router();
 router.get("/recipe", getRecipe);
 router.get("/recipe/:idRecipe", getDetailRecipe);
 router.post("/recipe", postRecipe);
+router.post("/diets", dietControl);
 
 module.exports = router;

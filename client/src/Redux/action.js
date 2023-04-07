@@ -1,30 +1,49 @@
 import {
   GET_ALL_RECIPES,
-  GET_DETAIL,
   ADD_RECIPE,
-  FILTER,
-  ORDER,
+  GET_DETAIL,
+  FILTER_DIETS,
+  ORDER_ABC,
+  FILTER_ORIGIN,
+  ORDER_SALUD,
+  GET_QUERY_RECIPE,
+  GET_DIET,
 } from "./action_type";
 import axios from "axios";
 
 export function getAllRecipes() {
   return async function (dispatch) {
     try {
-      const response = await axios(`http:localhost:3001/recipe`);
+      const response = await axios(`http://localhost:3001/recipe`);
+
       dispatch({
         type: GET_ALL_RECIPES,
         payload: response.data,
       });
     } catch (error) {
-      alert("recette introuvable");
+      console.log(error.message);
     }
   };
+}
+
+export function getQueryRecipe(name){
+  return async function(dispatch){
+    try {
+      const response= await axios (`http://localhost:3001/recipe?name=${name}`)
+      dispatch({
+        type:GET_QUERY_RECIPE,
+        payload:response.data,
+      })
+    } catch (error) {
+      alert ("tu as bien mis le nom ?")
+    }
+  }
 }
 
 export function getDetail(idRecipe) {
   return async function (dispatch) {
     try {
-      const response = await axios(`http:localhost:3001/recipe/${idRecipe}`);
+      const response = await axios(`http://localhost:3001/recipe/${idRecipe}`);
       dispatch({
         type: GET_DETAIL,
         payload: response.data,
@@ -34,6 +53,21 @@ export function getDetail(idRecipe) {
     }
   };
 }
+
+export function getDiet(){
+  return async function(dispatch){
+    try {
+      const response = await axios (`http://localhost:3001/diets`)
+      dispatch({
+        type:GET_DIET,
+        payload:response.data,
+      })
+    } catch (error) {
+      alert ("il n'y a pas de régimes dans votre base de données")
+    }
+  }
+}
+
 //funcio para postear una nueva receta
 export function addRecipe(recipe) {
   //se usa un llamado asincrono
@@ -57,16 +91,30 @@ export function addRecipe(recipe) {
   };
 }
 
-export function filterRecipe(diet) {
+export function filterDiet(diet) {
   return {
-    type: FILTER,
+    type: FILTER_DIETS,
     payload: diet,
   };
 }
 
-export function orderRecipes(option) {
+export function orderABC(option) {
   return {
-    type: ORDER,
+    type: ORDER_ABC,
     payload: option,
   };
+}
+
+export function orderSalud(points){
+  return{
+    type:ORDER_SALUD,
+    payload:points
+  }
+}
+
+export function filterOrigin(origin){
+  return{
+    type:FILTER_ORIGIN,
+    payload:origin
+  }
 }
