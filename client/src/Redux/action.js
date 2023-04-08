@@ -31,7 +31,7 @@ export function getQueryRecipe(name){
     try {
       const response= await axios (`http://localhost:3001/recipe?name=${name}`)
       dispatch({
-        type:GET_QUERY_RECIPE,
+        type:GET_ALL_RECIPES,
         payload:response.data,
       })
     } catch (error) {

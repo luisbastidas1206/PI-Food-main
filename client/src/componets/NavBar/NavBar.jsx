@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import style from "./NavBar.module.css";
 
 export default function NavBar(props) {
+
+
   return (
     <div className={style.nav}>
       <Link to="/home">
@@ -13,12 +15,14 @@ export default function NavBar(props) {
       <Link to="/">
         <button>Landing</button>
       </Link>
-      <Link>
+      <Link to="/abaut">
         <button>Abaut</button>
       </Link>
       <Link to= "creating">
         <button>Create Foot</button>
       </Link>
+
+      <SearchBar/>
     </div>
   );
 }
