@@ -1,70 +1,88 @@
 .conteiner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr auto;
-    gap: 20px;
-    height: 100vh;
-  }
-  
-  h1 {
-    grid-column: 1 / -1;
-    text-align: center;
-  }
-  
-  img {
-    grid-column: 1 / -1;
-    justify-self: center;
-    max-height: 300px;
-  }
-  
-  h2:nth-of-type(1) {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  
-  h2:nth-of-type(2) {
-    grid-column: 2;
-    grid-row: 2;
-  }
-  
-  p:nth-of-type(1) {
-    grid-column: 1;
-    grid-row: 3;
-  }
-  
-  p:nth-of-type(2) {
-    grid-column: 2;
-    grid-row: 3;
-  }
-  
-  h1:nth-of-type(2) {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    text-align: center;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  height: 100vh;
+}
 
-  .cajita {
-    color:rgb(0, 0, 0);
-    background-color: aliceblue;
-    font-family:italic;
-    font-size: 20px;
-     /* width: 200px;
+h1 {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+img {
+  grid-column: 1 / -1;
+  justify-self: center;
+  max-height: 300px;
+}
+
+h2:nth-of-type(1) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+h2:nth-of-type(2) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+p:nth-of-type(1) {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+p:nth-of-type(2) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+h1:nth-of-type(2) {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  text-align: center;
+}
+
+.cajita {
+  color: rgb(0, 0, 0);
+  background-color: aliceblue;
+  font-family: italic;
+  font-size: 20px;
+  /* width: 200px;
     height: auto; */
-    margin-bottom: 10px; 
-    text-align: center;
-    border: 2px solid rgba(58, 58, 58, 0.84);
-    padding: 10px;
-    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.724);
-  
-     animation: fadeIn 3s ease-in-out;
+  margin-bottom: 10px;
+  text-align: center;
+  border: 2px solid rgba(58, 58, 58, 0.84);
+  padding: 10px;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.724);
+
+  animation: fadeIn 3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    
+  to {
+    opacity: 1;
+  }
+}
+
+.titulo {
+  color: azure;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  text-align: center;
+  font-size: 40px;
+  text-shadow: 0 0 5px rgb(0, 0, 0);
+  animation: fadeIn 3s ease-in-out
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

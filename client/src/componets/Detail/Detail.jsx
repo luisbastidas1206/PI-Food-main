@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getDetail } from "../../Redux/action";
 import style from "./Detail.module.css";
+import myImg from "../../imagenes/detail.jpg";
 
 export default function Detail(props) {
   const dispatch = useDispatch();
@@ -19,14 +20,20 @@ export default function Detail(props) {
   const pasosB = pasosM?.replace(/<.*?>/g, "");
   return (
     <div className={style.conteiner}>
-      <h1>{detalle?.nombre}</h1>
-      <img src={detalle?.imagen} alt={detalle.nombre} />
-      <h2>
-        {detalle.dietas?.map((e) => (
-          <ul>{e.charAt(0).toUpperCase() + e.slice(1)}</ul>
-        ))}
-      </h2>
-      <h2>Health Score:{detalle.salud}</h2>
+      
+        <h1 className={style.titulo}>{detalle?.nombre}</h1>
+      
+      <div className={style.cajita}>
+        <img src={detalle?.imagen} alt={detalle.nombre} />
+
+        <h2>
+          {detalle.dietas?.map((e) => (
+            <ul>{e.charAt(0).toUpperCase() + e.slice(1)}</ul>
+          ))}
+        </h2>
+        <h2>Health Score:{detalle.salud}</h2>
+      </div>
+
       <div className={style.cajita}>
         <h2>Step by Step:</h2>
         <p>{pasosB ? pasosB : ""}</p>
@@ -35,7 +42,9 @@ export default function Detail(props) {
         <h2> Summary:</h2>
         <p>{resumenBueno ? resumenBueno : ""}</p>
       </div>
-      <h1>Hola soy el Detallista del salón</h1>
+      <div className={style.cajita}>
+        <img src={myImg} alt="Luis Carlos" />
+      </div>
     </div>
   );
 }
