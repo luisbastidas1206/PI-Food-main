@@ -7,7 +7,7 @@
   text-shadow: 1 1 7px rgb(255, 255, 255);
   border: 4px solid rgb(174, 159, 141);
   margin: 15px;
-  
+
   border-radius: 10px;
   box-shadow: 0 0 50px rgba(59, 50, 232, 0.763);
   transition: 0.3s;
@@ -17,6 +17,7 @@
   background-image: url("../../imagenes/madera.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -38,36 +39,27 @@
   font-weight: bold;
 }
 
-.card::before,
-.card::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  background-color: #8B4513;
+
+.cajita {
+  color: rgb(0, 0, 0);
+  background-color: rgba(240, 248, 255, 0.565);
+  font-family: italic;
+  font-size: 20px;
+  width: 80%;
+  height: auto;
+  text-align: center;
+  border: 2px solid rgba(58, 58, 58, 0.84);
+  padding: 10px;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.724);
+  margin-left: 5%;
 }
 
-.card::before {
-  top: 0;
-}
-
-.card::after {
-  bottom: 0;
-}
-
-.card::before,
-.card::after,
-.card {
-  border-radius: 8px;
-  position: relative;
-}
-
-.card::before {
-  transform: skewX(-45deg);
-  left: -5px;
-}
-
-.card::after {
-  transform: skewX(45deg);
-  right: -5px;
+.card h3{
+  background-image: url("../../imagenes/madera2.jpg");
+ 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  
+  
 }

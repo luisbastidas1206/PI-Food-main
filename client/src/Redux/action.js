@@ -116,3 +116,9 @@ export function filterOrigin(origin){
     payload:origin
   }
 }
+
+export const deleteFilters = () => {
+  return {
+    type: "DELETE_FILTERS"
+  }
+}

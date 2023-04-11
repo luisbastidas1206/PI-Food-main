@@ -1,6 +1,7 @@
 import {useDispatch} from 'react-redux'
 import { useState } from 'react'
 import { getAllRecipes, getQueryRecipe } from '../../Redux/action'
+import style from './SearchBar.module.css'
 
 export default function SearchBar(props){
     const [ input, setInput ] = useState('')
@@ -31,7 +32,7 @@ export default function SearchBar(props){
 
     
     return (
-        <div>          
+        <div className={style.div1}>          
             <input type="text" name='search' value={input} onChange={inputHandler} onKeyDown={handleKeyPress}/>
             <button onClick={searchHandler} value={input}>Buscar</button>
         </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllRecipes, getDiet } from "../../Redux/action";
+import { getAllRecipes, getDiet, filterDiet, filterOrigin, orderABC, orderSalud, deleteFilters } from "../../Redux/action";
 import Card from "../Card/Card";
 import style from "./Home.module.css";
 import Loader from "../Loader/Loader";
@@ -18,7 +18,6 @@ export default function Home() {
   const end = page * 9; //9 es la cantidad de recetas por pagina
   const start = end - 9; //una loba como yo no ta pa tipos como tu
   const actual =
-    // queryRecipes.length === 0 ?
       myRecipes?.slice(start, end)
       
   const totalPage = Math.ceil(myRecipes.length / 9);
@@ -36,10 +35,62 @@ export default function Home() {
   useEffect(() => {
     dispatch(getAllRecipes());
   }, [dispatch]);
-  console.log(diets)
+  
+  const filterHandler=(event)=>{
+    if(event.target.name === "Diets"){
+      dispatch(filterDiet(event.target.value))
+    }else{
+      dispatch(filterOrigin(event.target.value))
+    }
+    if(event.target.value === "All"){
+      dispatch(deleteFilters())
+    }
+
+  }
+
+  const orderHandler=(event)=>{
+    if(event.target.name === "alfabetico"){
+      dispatch(orderABC(event.target.value))
+    }else{
+      dispatch(orderSalud(event.target.value))
+    }
+  }
+
+  const reset= ()=>{
+    dispatch(deleteFilters())
+  }
 
   return (
     <div className={style.home}>
+
+      <select name="Origin" onChange={filterHandler}>
+        <option value="All">All</option>
+        <option value="Api">Api</option>
+        <option value="DataBase">DataBase</option>
+      </select>
+
+      <select name="Diets" onChange={filterHandler}>
+        <option value="All">All</option>
+        {diets?.map(e=>{
+          return(
+            <option value={e.nombre} key={e.id}>{e.nombre}</option>
+          )
+        })}
+      </select>
+
+      <select name="alfabetico" onChange={orderHandler}>
+        <option value="a-z">a-z</option>
+        <option value="z-a">z-a</option>
+      </select>
+
+      <select name="salud" onChange={orderHandler}>
+        <option value="ascendente">ascendente</option>
+        <option value="descendente">descendente</option>
+      </select>
+
+      <button onClick={reset}>Reset Filter</button>
+
+
       <div>
         <Paginado 
         page={page}

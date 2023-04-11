@@ -12,7 +12,6 @@ import {
 
 const initialState = {
   filterRecipes: [],
-  // queryRecipes: [],
   myRecipes: [],
   detail: {},
   diets: [],
@@ -24,12 +23,14 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         myRecipes: [...state.myRecipes, payload],
+        filterRecipes: [...state.filterRecipes, payload]
       };
 
     case GET_ALL_RECIPES:
       return {
         ...state,
         myRecipes: payload,
+        filterRecipes: payload,
       };
     case GET_DETAIL:
       return {
@@ -37,48 +38,53 @@ const reducer = (state = initialState, { type, payload }) => {
         detail: payload,
       };
 
+      case GET_DIET:
+        return {
+          ...state,
+          diets: payload,
+        };
+      
     case FILTER_DIETS:
-      const filtered = state.myRecipes.filter((e) => e.diets === payload);
+      const filtered = state.filterRecipes.filter((recipe) =>
+      recipe.dietas.map((r) => r.nombre).includes(payload));
+      
+      
       return {
         ...state,
-        filterRecipes: filtered,
+        myRecipes: filtered,
       };
+      
 
     case ORDER_ABC:
       return {
         ...state, //Hernan cada "," me recuerda a ti
         myRecipes:
-          payload === "Ascendente"
-            ? state.myRecipes.sort((a, b) => a.name - b.name)
-            : state.myRecipes.sort((a, b) => b.name - a.name), // si da errror probar ponerlo en español
+          payload === "a-z"
+            ? state.myRecipes.sort((a, b) => a.nombre.localeCompare(b.nombre) )
+            : state.myRecipes.sort((a, b) => b.nombre.localeCompare(a.nombre) ), // si da errror probar ponerlo en español
       };
 
     case ORDER_SALUD:
         return {
             ...state, //Hernan cada "," me recuerda a ti
             myRecipes:
-              payload === "saludOrdenada"
-                ? state.myRecipes.sort((a, b) => a.healthScore - b.healthScore)
-                : state.myRecipes.sort((a, b) => b.healthScore - a.healthScore), // si da errror probar ponerlo en español
+              payload === "ascendente"
+                ? state.myRecipes.sort((a, b) => a.salud < b.salud ? -1: 1)
+                : state.myRecipes.sort((a, b) => a.salud > b.salud ? -1: 1), // si da errror probar ponerlo en español
           };
 
     case GET_QUERY_RECIPE:
       return {
         ...state,
-        myRecipes: payload,
+        filterRecipes: payload
       };
 
-    case GET_DIET:
-      return {
-        ...state,
-        diets: payload,
-      };
 
     case FILTER_ORIGIN:
-      const filtro = state.myRecipes.filter((e) => {
-        if (payload === "Api" && typeof id === "number") {
+      const filtro = state.filterRecipes.filter((e) => {
+        if (payload === "Api" && typeof e.id === "number") {
           return true;
-        } else if (payload === "DataBase" && typeof id === "string") {
+        } else if (payload === "DataBase" && typeof e.id === "string") {
           return true;
         } else {
           return false;
@@ -86,8 +92,14 @@ const reducer = (state = initialState, { type, payload }) => {
       });
       return {
         ...state,
-        filterRecipes: filtro,
+        myRecipes: filtro,
       };
+
+      case "DELETE_FILTERS":
+      return{
+        ...state,
+        myRecipes: state.filterRecipes
+      }
 
     default:
       return { ...state };

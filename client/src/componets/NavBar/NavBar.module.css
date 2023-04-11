@@ -1,3 +1,33 @@
-.navbar {
-  color: aliceblue;
+.nav {
+  color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.209);
+  display: flex;
+  justify-content: space-between;
 }
+
+
+
+.button{
+  color: white;
+}
+
+.button button{
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.423);
+  transition: 0.3s;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+  font-size: 15px;
+  width: auto;
+  height: auto;
+
+}
+
+.nav button:hover {
+  transform: translateY(3px);
+  box-shadow: 3px 3px 12px rgb(255, 255, 255);
+  background-color: rgba(172, 170, 170, 0.58);
+  cursor: pointer;
+}
+
+
