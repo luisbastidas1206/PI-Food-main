@@ -1,24 +1,26 @@
 export default function validation(inputs) {
-    const errors = {};
-    const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i;
-    const regexPassword = new RegExp("[0-9]");
-    
-    if (!regexEmail.test(inputs.username)) {
-      errors.username = "Debe ser un email válido";
-    }
-    if (!inputs.username) {
-      errors.username = "Campo Obligatorio";
-    }
-    if (inputs.username.length > 35) {
-      errors.username = "35 Caracteres MÁXIMO!!!";
-    }
-    if (!regexPassword.test(inputs.password)) {
-      errors.password = "La contraseña debe tener al menos 1 número";
-    }
-    if (inputs.password.length < 6 || inputs.password.length > 10) {
-      errors.password = "Entre 6 y 10 caractéres";
-    }
+  const errors = {};
+  const urlRegex =/(https?:\/\/.*\.(?:png|jpeg|jpg))/i; //Expresión regular para verificar una url solamente de imágenes
+  const letraRegex = /^[A-Za-z\s]+$/; //Expresión regular para verificar que un texto no tenga números ni símbolos
+  if (!letraRegex.test(inputs.nombre)) {
+    errors.nombre = "El nombre no puede tener símbolos ni números";
+  }
+  if(inputs.nombre.trim().length === 0){
+    errors.nombre = "Campo obligatorio"
+  }
+  if (!urlRegex.test(inputs.imagen)) {
+    errors.imagen = "URL no válida";
+  }
+  if (!inputs.resumen.trim().length >= 1) {
+    errors.resumen = "Campo obligatorio";
+  }
+  if(!inputs.resumen.trim().length > 500) {
+    errors.resumen = "Máximo excedido";
+  }
+  if (!inputs.pasos.trim().length >= 1) {
+    errors.pasos = "Campo obligatorio";
+  }
   
-    return errors;
+  return errors;
   }
   

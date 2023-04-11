@@ -1,87 +1,125 @@
-import React, { useState } from 'react';
-import './Form.module.css'
+import React, { useState, useRef } from "react";
+import "./Form.module.css";
+import validation from "./validate";
+import { useDispatch, useSelector } from "react-redux"
+import { addRecipe } from '../../Redux/action'
+
+
 
 function RecipeForm() {
-  const [name, setName] = useState('');
-  const [summary, setSummary] = useState('');
-  const [healthScore, setHealthScore] = useState('');
-  const [steps, setSteps] = useState('');
-  const [image, setImage] = useState('');
-  const [diets, setDiets] = useState([]);
+  const formBase = useRef(null); //*Hook para referencia el form 
+  const dispatch = useDispatch()
+  const {diets} = useSelector(state => state);
+  const [receta, setReceta] = useState({
+    nombre: "",
+    imagen: "",
+    resumen: "",
+    salud: 0,
+    pasos: "",
+    dietas: [],
+  });
+  const [errores, setErrores] = useState({
+    nombre: "",
+    imagen: "",
+    resumen: "",
+    salud: 0,
+    pasos: "",
+    dietas: [],
+  });
+
+  const handleInput = (event) =>{
+    const {name, value} = event.target
+    setReceta({
+      ...receta,
+      [name]: value
+    })
+    setErrores(validation({
+      ...receta,
+      [name]:value
+    })) 
+  }
 
   const handleSubmit = (event) => {
+    
     event.preventDefault();
-    const recipeData = {
-      name,
-      summary,
-      healthScore,
-      steps,
-      image,
-      diets
-    };
-    console.log(recipeData); // puedes hacer lo que quieras con los datos enviados
-  }
+    const validacion = validation(receta)
+    setErrores(validacion)
+    if(!errores.nombre &&
+      !errores.imagen &&
+      !errores.resumen &&
+      !errores.salud &&
+      !errores.pasos &&
+      receta.dietas.length >= 1){
+        dispatch(addRecipe (receta))
+        
+        setReceta({
+          nombre: "",
+          imagen: "",
+          resumen: "",
+          salud: 0,
+          pasos: "",
+          dietas: [],
+        });
 
-  const handleCheckboxChange = (event) => {
-    const diet = event.target.value;
-    const checked = event.target.checked;
-    if (checked) {
-      setDiets([...diets, diet]);
-    } else {
-      setDiets(diets.filter((d) => d !== diet));
+        formBase.current.reset();
+        
+        
+        alert("recette créée ")
+      }else{
+        alert("impossible de créer la recette")
+      }
+  };
+
+    const dietHandle = (event)=>{
+      if(event.target.checked){
+      
+      setReceta({...receta,dietas:[...receta.dietas,event.target.value]})
     }
-  }
+    if(!event.target.checked){
+      const aux = receta.dietas.filter(e=> e !== event.target.value)
+      
+      // setDieta(dieta.filter(e=> e !==event))
+      setReceta({
+        ...receta,
+        dietas: aux
+      })
+    }
+    }
+
+    const mapeoDietas = () =>{
+       
+      return diets.map((e,i)=>{
+        return(
+          <div key={i}>
+          <label>{e.nombre}</label>
+          <input type="checkbox" value={e.nombre} key={i} onChange={dietHandle}/>
+          </div>
+        )
+      })
+    }
+
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Nombre:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Resumen del plato:
-        <input type="text" value={summary} onChange={(e) => setSummary(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Health Score:
-        <input type="text" value={healthScore} onChange={(e) => setHealthScore(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Paso a paso:
-        <textarea value={steps} onChange={(e) => setSteps(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Imagen:
-        <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Tipos de dieta:
-        <br />
-        <input type="checkbox" value="vegan" checked={diets.includes('vegan')} onChange={handleCheckboxChange} />
-        <span>Vegan</span>
-        <br />
-        <input type="checkbox" value="vegetarian" checked={diets.includes('vegetarian')} onChange={handleCheckboxChange} />
-        <span>Vegetarian</span>
-        <br />
-        <input type="checkbox" value="paleo" checked={diets.includes('paleo')} onChange={handleCheckboxChange} />
-        <span>Paleo</span>
-        <br />
-        <input type="checkbox" value="Gluten free" checked={diets.includes('Gluten free')} onChange={handleCheckboxChange} />
-        <span>Gluten free</span>
-        <br />
-        <input type="checkbox" value="Lacto ovo vegetarian" checked={diets.includes('Lacto ovo vegetarian')} onChange={handleCheckboxChange} />
-        <span>Lacto ovo vegetarian</span>
-        <br />
-        
-        {/* Agrega más tipos de dieta aquí según sea necesario */}
-      </label>
-      <br />
-      <button type="submit">Crear receta</button>
+    <form onSubmit={handleSubmit} ref={formBase}>
+      <label>Nombre: </label>
+      <input type="text" value={receta.nombre} onChange={handleInput} name="nombre"/>
+      {errores.nombre && <p>{errores.nombre}</p>}
+      <label>Imagen: </label>
+      <input type="text" value={receta.imagen} onChange={handleInput} name="imagen"/>
+      {errores.imagen && <p>{errores.imagen}</p>}
+      <label>Resume: </label>
+      <textarea type="text" value={receta.resumen} onChange={handleInput} name="resumen"/>
+      {errores.resumen && <p>{errores.resumen}</p>}
+      <label>Salud: </label>
+      <input type="text" value={receta.salud} onChange={handleInput} name="salud"/>
+      {errores.salud && <p>{errores.salud}</p>}
+      <label>Pasos: </label>
+      <textarea type="text" value={receta.pasos} onChange={handleInput} name="pasos"/>
+      {errores.pasos && <p>{errores.pasos}</p>}
+      <label>Dietas: </label>
+      {mapeoDietas()}
+      {errores.dietas && <p>{errores.dietas}</p>}
+      <button>Crear</button>
     </form>
   );
 }

@@ -1,7 +1,4 @@
-const {Recipe} = require ("../db")
-const axios = require ("axios")
-require("dotenv").config()
-const {API_KEY} = process.env
+const {Recipe, Diet} = require ("../db")
 
 const postRecipe = async(req, res)=>{
     try {
@@ -12,9 +9,13 @@ const postRecipe = async(req, res)=>{
             resumen,
             salud,
             pasos,
-            dietas: dietas.map(e=> e.nombre)
         })
-        await receta.addDiets(dietas)
+        const dietasDB = await Diet.findAll({
+            where:{
+                nombre:dietas
+            }
+        })
+        await receta.addDiets(dietasDB)
         res.json(201, receta)
     } catch (error) {
         res.json(400, {error:error.message})

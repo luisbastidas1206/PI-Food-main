@@ -1,4 +1,4 @@
-const { Recipe } = require("../db");
+const { Recipe, Diet } = require("../db");
 const axios = require("axios");
 require("dotenv").config();
 const { API_KEY } = process.env;
@@ -20,10 +20,25 @@ const getDetailRecipe = async (req, res) => {
       resumen: api.summary,
       salud: api.healthScore,
       pasos: api.instructions,
-      dietas: api.diets
+      diets: api.diets.map(e=>{
+        return{
+          nombre:e
+        }
+      })
     }
     } else {
-      data = await Recipe.findByPk(idRecipe);
+      data = await Recipe.findOne({
+        where:{
+          id:idRecipe
+        },
+        include:{
+          model:Diet,
+          attributes:["nombre"],
+          through:{
+            attributes:[]
+          }
+        }
+      });
     }
     res.json(200, data);
   } catch (error) {

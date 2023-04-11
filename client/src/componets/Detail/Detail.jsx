@@ -8,8 +8,8 @@ import myImg from "../../imagenes/detail.jpg";
 export default function Detail(props) {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const detalle = useSelector((state) => state.detail); //utilizar useSeñector para obtener el estado actual de detailRecipe
-  console.log(detalle);
+  const detalle = useSelector((state) => state.detail); //utilizar useSelector para obtener el estado actual de detailRecipe
+  console.log("este es el detalle", detalle);
   useEffect(() => {
     dispatch(getDetail(id));
   }, [dispatch, id]);
@@ -27,8 +27,8 @@ export default function Detail(props) {
         <img src={detalle?.imagen} alt={detalle.nombre} />
 
         <h2>
-          {detalle.dietas?.map((e) => (
-            <ul>{e.charAt(0).toUpperCase() + e.slice(1)}</ul>
+          {detalle.diets?.map((e) => (
+            <ul>{e.nombre.charAt(0).toUpperCase() + e.nombre.slice(1)}</ul>
           ))}
         </h2>
         <h2>Health Score:{detalle.salud}</h2>

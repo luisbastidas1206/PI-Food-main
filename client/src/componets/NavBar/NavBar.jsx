@@ -8,7 +8,7 @@ export default function NavBar(props) {
 
 
   return (
-    <div className={style.nav}>
+    <div className={style.navbar}>
       <Link to="/home">
         <button>Home</button>
       </Link>

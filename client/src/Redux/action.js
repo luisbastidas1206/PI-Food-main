@@ -21,7 +21,6 @@ export function getAllRecipes() {
         payload: response.data,
       });
     } catch (error) {
-      console.log(error.message);
     }
   };
 }
@@ -72,16 +71,15 @@ export function getDiet(){
 export function addRecipe(recipe) {
   //se usa un llamado asincrono
   return async function (dispatch) {
+
     try {
       //se utilisa el metodo .post de axios para postear en la ruta /recipe
-      await axios.post("http:localhost:3001/recipe", {
-        method: "post",
-        headers: { "Content-Type": "application-json" },
-        body: JSON.stringify(recipe),
-      });
-      dispatch({
+      const url = `http://localhost:3001/recipe`
+      const response = await axios.post(url, recipe);
+      console.log(response)
+      return dispatch({
         type: ADD_RECIPE,
-        payload: recipe,
+        payload: response.data,
       });
     } catch (error) {
       alert(

@@ -27,8 +27,6 @@ const getDiets = async () => {
         ignoreDuplicates: true, // según san google esta linea es para que ignore las dietas que ya estan en base de datos, si intenta agregar una no lo hará
       }
     );
-    const dbDiets = await Diet.findAll();
-    return dbDiets
   } catch (error) {
     return error.message;
   }
@@ -36,11 +34,13 @@ const getDiets = async () => {
 
 const dietControl= async (req, res) =>{
     try {
-        const response = await getDiets()
+        const response = await Diet.findAll()
         res.json(200, response)
     } catch (error) {
         res.json(400 , {error:error.message})
     }
 } 
+
+
 
 module.exports = { getDiets, dietControl};

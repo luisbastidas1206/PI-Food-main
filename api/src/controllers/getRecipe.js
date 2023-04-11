@@ -20,7 +20,11 @@ const getRecipe = async (req, res) => {
         pasos: e.analyzedInstructions[0]
           ? e.analyzedInstructions[0].steps.map((s) => s.step).join(" ")
           : "",
-        dietas: e.diets,
+        dietas: e.diets.map(e=>{
+          return{
+            nombre:e
+          }
+        })
       };
     });
     const dbRec = await Recipe.findAll({
@@ -36,7 +40,11 @@ const getRecipe = async (req, res) => {
           resumen: e.resumen,
           salud: e.salud,
           pasos: e.pasos,
-          dietas: e.diets.map((dieta) => dieta.nombre),
+          dietas: e.diets.map(e=>{
+            return{
+              nombre:e.nombre
+            }
+          }),
         };
       })
     );
