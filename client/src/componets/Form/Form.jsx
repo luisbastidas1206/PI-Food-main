@@ -152,10 +152,12 @@ function RecipeForm() {
           {errores.pasos && <p>{errores.pasos}</p>}
           <br />
           <label>Dietas: </label>
-        </form>
-      {mapeoDietas()}
+          {mapeoDietas()}
       {errores.dietas && <p>{errores.dietas}</p>}
-      <button>Crear</button>
+          <button>Crear</button>
+        </form>
+      
+      
       </div>
       <div
         className={style.previewimage}
