@@ -20,6 +20,9 @@ export default function validation(inputs) {
   if (!inputs.pasos.trim().length >= 1) {
     errors.pasos = "Campo obligatorio";
   }
+  if (inputs.salud <1 || inputs.salud > 100 ){
+    errors.salud = "Debe ser un numero entre 1 y 100"
+  }
   
   return errors;
   }

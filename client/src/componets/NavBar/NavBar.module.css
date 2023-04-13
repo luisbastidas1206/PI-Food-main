@@ -13,7 +13,7 @@
 
 .button button{
   color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.423);
+  background-color: rgba(0, 4, 255, 0.423);
   transition: 0.3s;
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   
@@ -26,7 +26,7 @@
 .nav button:hover {
   transform: translateY(3px);
   box-shadow: 3px 3px 12px rgb(255, 255, 255);
-  background-color: rgba(172, 170, 170, 0.58);
+  background-color: rgba(84, 168, 237, 0.606);
   cursor: pointer;
 }
 

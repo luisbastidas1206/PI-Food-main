@@ -48,6 +48,8 @@ dietModel(sequelize);
 // Product.hasMany(Reviews);
 const { Recipe, Diet } = sequelize.models;
 
+//creacion de relaciones de muchos a muchos en la tabla diet_recipe
+
 Recipe.belongsToMany(Diet, { through: "diet_recipe" });
 Diet.belongsToMany(Recipe, { through: "diet_recipe" });
 

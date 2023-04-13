@@ -98,7 +98,7 @@ const reducer = (state = initialState, { type, payload }) => {
       case "DELETE_FILTERS":
       return{
         ...state,
-        myRecipes: state.filterRecipes
+        myRecipes: [...state.filterRecipes]
       }
 
     default:

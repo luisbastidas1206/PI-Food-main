@@ -50,12 +50,16 @@ const getRecipe = async (req, res) => {
     );
 
     const recetas = apiRec.concat(dbRec)
+    const letraRegex = /^[A-Za-z\s]+$/
 
     if (name) {
-      const filtered = recetas.filter((e) =>
+      if (letraRegex.test(name)) {
+        const filtered = recetas.filter((e) =>
         e.nombre.toLowerCase().includes(name.toLowerCase())
       );
       res.json(200, filtered);
+      }
+      
     } else {
       res.json(200, recetas);
     }
